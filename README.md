@@ -1,28 +1,19 @@
-# Tictactoe
+# 5-in-a-Row vs. AI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
+**This project is hosted and playable on Firebase:**
 
-## Development server
+**https://ville-angular.web.app/**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This web application project was programmed using Angular framework. I did this during summer 2020. I had no previous experience with Angular and the purpose of this project was to learn the framework and get general practice in programming.
 
-## Code scaffolding
+I started with a standard Tic-tac-toe game with a 3x3 board where the player played against an "AI" which simply chose a move at random. Because a 3x3 board for 3-in-a-row against a completely random AI isn't a particularly interesting as a game or as a development challenge, I developed the game and the AI further.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The game is now a 10x10 board where 5-in-a-row wins.
 
-## Build
+The AI uses a minimax algorithm to determine the plays it makes. To make the game enjoyable I decided that the AI has to make its moves in 250 milliseconds. However, the large board provides a challenge for the AI algorithm because the search space gets massive as the growth is exponential. The current AI uses breadth-first search but because there isn't enough time to get very deep in the search, it relies a lot on the evaluation function being strong enough. The evaluation function recognizes many different types of game states which lead to desirable or undesirable scenarios for the AI and scores them appropriately; trying to win or to stop the player from winning. For example, an open-ended line of 4-in-a-row or the slightly more advanced two open-ended lines of 3-in-a-row always lead to victory.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To help the speed of the search, the algorithm only looks for plays in squares close to ones which already have playmarks in them, as there is little or no reason to play anything in a corner with no other playmarks near. The algorithm also utilizes Alpha-Beta pruning to abandon search paths which are for sure going to be weaker than other already found paths.
 
-## Running unit tests
+All in all, the performance of the AI is satisfactory. It is certainly not an easy opponent.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-"# 5-in-a-row-AI" 
+For future development, multithreading with web workers should be utilized to allow the AI to search deeper. Other types of algorithms, such as depth-first search and Monte Carlo, should also be tested.
